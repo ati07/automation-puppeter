@@ -1,4 +1,5 @@
 import { connect } from 'puppeteer-real-browser'
+import chromium  from 'chromium';
 
 function waitforme(millisec) {
     return new Promise(resolve => {
@@ -59,36 +60,30 @@ const helperFunction = async (newBaseUrl, elements) => {
     // console.log('tempData', tempData, tempData.length)
     return tempData
 }
-// http://shnlhwxe-rotate:u6ixvrwq6kch@p.webshare.io:80
 const clusterBrowser = async () => {
+    // console.log("chromium.path",chromium.path)
     let data = await connect({
-        // headless : 'auto',
+        headless : 'auto',
+        // customConfig: {
+        //     executablePath: chromium.path
+        // },
         // fingerprint: true,
-        // args: [
-        //     '--disable-dev-shm-usage',
-        //     '--proxy-server='+conf.vpnServer
-        // ],
-        args: [
-            '--disable-dev-shm-usage',
-            '--proxy-server=http://shnlhwxe-rotate:u6ixvrwq6kch@p.webshare.io:80'
-        ],
-        tf: false, // If a feature you want to use at startup is not working, you can initialize the tf variable false and update it later.
+        tf: true, // If a feature you want to use at startup is not working, you can initialize the tf variable false and update it later.
         turnstile: true,
-        // proxy: {
-        //     host: 'p.webshare.io',
-        //     port: '80',
-        //     username: 'shnlhwxe-rotate',
-        //     password: 'u6ixvrwq6kch'
-        // }
+        proxy: {
+            host: '81.29.146.30',
+            port: '12323',
+            username: '14a3fda0aa6d1',
+            password: '273010861a'
+        }
     })
         .then(async response => {
             const { page, browser, setTarget } = response
-            // let baseUrl = "https://www.civitekflorida.com/ocrs/county/51/"
-            let baseUrl = "https://www.immobilienscout24.de/"
-            // let baseUrl = 'https://www.zoopla.co.uk/for-sale/property/e16/?q=E16&results_sort=newest_listings&search_source=for-sale'
+            let baseUrl = 'https://mrp.bcgmilan.it/'
+            // let baseUrl = 'https://www.inmuebles24.com/terrenos-en-venta-en-santiago.html'
             // newBaseUrl = `${baseUrl.split('.html')[0]}-pagina-9999.html`;
             await page.goto(baseUrl, { waitUntil: "domcontentloaded", timeout: 100000 });
-            setTarget({ status: true })
+            // setTarget({ status: true })
             // await page.waitForSelector('.sc-1tt2vbg-5');
             // var url = page.url();
             // var pagination = url.match(/-pagina-(\d+)\.html/);
@@ -144,7 +139,11 @@ const clusterBrowser = async () => {
     return data
 }
 await clusterBrowser().then((res)=>{
-    console.log('res')
+    console.log('res',res)
 })
+// IP:81.29.146.30
+// Port:12323
+// ID:14a3fda0aa6d1
+// password:273010861a
 
 
